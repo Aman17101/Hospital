@@ -1,0 +1,17 @@
+
+
+services:
+  postgres:
+    image: postgres
+    container_name: test-postgres
+    ports:
+      - "5433:5432"  # DIFFERENT HOST PORT to avoid clash
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: testdb
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data  # DIFFERENT VOLUME
+
+volumes:
+  pgdata_test:
