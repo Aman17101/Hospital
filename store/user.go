@@ -1,30 +1,18 @@
 package store
 
 import (
-	"fmt"
-
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	"github.com/Aman17101/Hospital/model"
+	"github.com/Aman17101/Hospital/util"
 )
 
-type Postgress struct {
-	DB *gorm.DB
-}
-
-func (store *Postgress) NewStore() error {
-	dsn := "host=localhost user=testuser password=testpass dbname=testdb port=5433 sslmode=disable "
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		return err
-	} else {
-		store.DB = db
+func (store Postgress) CreateUser(user *model.User) error {
+	util.Log(model.LogLevelInfo, model.StorePackage, model.CreateUser, " creating new user  ", nil)
+	response :=store.DB.Create(user)
+	if response.Error != nil {
+		util.Log(model.LogLevelError, model.StorePackage, model.CreateUser,"error while creating new user ",response.Error)
+		return response.Error
 	}
-	fmt.Printf("db is %v \n", db)
-	return nil
 
+util.Log(model.LogLevelInfo, model.StorePackage, model.CreateUser,"created new user ",user )
+return nil
 }
-type StoreOperation interface{
-	NewStore() error
-
-}
-
