@@ -5,6 +5,11 @@ import (
 	"github.com/Aman17101/Hospital/controller"
 	"github.com/gin-gonic/gin"
 )
+// @title testdb
+// @description API for managing Hospital
+// @host localhost:8000
+// @BasePath /
+// @schemes http https
 
 func main() {
 	api := api.ApiRoutes{}
