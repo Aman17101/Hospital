@@ -1,0 +1,145 @@
+basePath: /
+definitions:
+  model.User:
+    properties:
+      active:
+        example: true
+        type: boolean
+      city:
+        example: Metropolis
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: aman
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      district:
+        example: Central
+        type: string
+      email:
+        example: aman@1
+        type: string
+      first_name:
+        example: John
+        type: string
+      id:
+        type: string
+      lane:
+        example: 1234 Elm St
+        type: string
+      last_name:
+        example: Smith
+        type: string
+      middle_name:
+        example: Doe
+        type: string
+      password:
+        example: password
+        type: string
+      pincode:
+        example: 123456
+        type: integer
+      state:
+        example: NY
+        type: string
+      type:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      village:
+        example: Springfield
+        type: string
+    required:
+    - city
+    - created_by
+    - district
+    - email
+    - first_name
+    - last_name
+    - middle_name
+    - password
+    - pincode
+    - state
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: API for managing Hospital
+  title: testdb
+paths:
+  /user/{id}:
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a user by ID
+      tags:
+      - users
+  /user/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all users
+      tags:
+      - users
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Create a user
+      tags:
+      - users
+schemes:
+- http
+- https
+swagger: "2.0"
